@@ -30,4 +30,11 @@ public function countryUpdate(Request $request,CountryModel $country){
       return response()->json($country,200);
 }
 
+//delete
+
+public function countryDelete(Request $request,CountryModel $country){
+    $country->delete();
+    return response()->json(null,204);
+}
+
 }

@@ -25,3 +25,6 @@ Route::post('country','Country\CountryController@countrySave');
 
 //for updating the record
 Route::put('country/{country}','Country\CountryController@countryUpdate');
+
+//for deleting the record
+Route::delete('country/{country}','Country\CountryController@countryDelete');
