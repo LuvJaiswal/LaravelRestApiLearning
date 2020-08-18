@@ -21,6 +21,13 @@ class CountryController extends Controller
 
 public function countrySave(Request $request){
     $country = CountryModel::created($request->all());
-    return response()-> json($country,201);
+    return response()->json($country,201);
 }
+
+//update
+public function countryUpdate(Request $request,CountryModel $country){
+      $country->update($request->all());
+      return response()->json($country,200);
+}
+
 }
