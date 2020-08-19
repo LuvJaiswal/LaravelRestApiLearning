@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\CountryModel;
+use Validator;
+
 
 class CountryController extends Controller
 {
@@ -17,22 +19,30 @@ class CountryController extends Controller
    public function countryByID($id){
        $country = CountryModel::find($id);
        if(is_null($country)){  //validation made
-           return response()->json('Record Not found!', 404); 
+           return response()->json(["message" => "Record Not found!"], 404); 
        }
     return response()->json($country,200);
 
 }
 
 public function countrySave(Request $request){
-    $country = CountryModel::created($request->all());
+    $rules =[
+        'name' => 'required|min:3',
+        'iso' => 'required|min:2|max:2'
+    ];
+$validator = Validator::make($request->all(), $rules);
+if($validator->fails()){
+    return response()->json($validator->errors(),400);
+}
+    $country = CountryModel::create($request->all());
     return response()->json($country,201);
 }
 
 //update
-public function countryUpdate(Request $request,$id){
-    $country = CountryModel::find($id);
+public function countryUpdate(Request $request, $id){
+    $country = CountryModel:: find($id);
     if(is_null($country)){  //validation made
-        return response()->json('Record Not found!', 404); 
+        return response()->json(["message" => "Record Not found!"], 404); 
     }
       $country->update($request->all());
       return response()->json($country,200);
