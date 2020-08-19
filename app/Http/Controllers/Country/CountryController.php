@@ -15,7 +15,11 @@ class CountryController extends Controller
    }
 
    public function countryByID($id){
-    return response()->json(CountryModel::find($id),200);
+       $country = CountryModel::find($id);
+       if(is_null($country)){  //validation made
+           return response()->json('Record Not found!', 404); 
+       }
+    return response()->json($country,200);
 
 }
 
