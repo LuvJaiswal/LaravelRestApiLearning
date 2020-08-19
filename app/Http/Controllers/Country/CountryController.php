@@ -29,14 +29,22 @@ public function countrySave(Request $request){
 }
 
 //update
-public function countryUpdate(Request $request,CountryModel $country){
+public function countryUpdate(Request $request,$id){
+    $country = CountryModel::find($id);
+    if(is_null($country)){  //validation made
+        return response()->json('Record Not found!', 404); 
+    }
       $country->update($request->all());
       return response()->json($country,200);
 }
 
 //delete
 
-public function countryDelete(Request $request,CountryModel $country){
+public function countryDelete(Request $request,$id){
+    $country = CountryModel::find($id);
+    if(is_null($country)){  //validation made
+        return response()->json('Record Not found!', 404); 
+    }
     $country->delete();
     return response()->json(null,204);
 }
