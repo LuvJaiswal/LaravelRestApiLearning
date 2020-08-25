@@ -17,7 +17,7 @@ class AuthBasic
     public function handle($request, Closure $next)
     {
         if(Auth::onceBasic()){
-            return response()->json(['message'=> 'Authentication failed'], 401);
+            return response() -> json(['message'=> 'Authentication failed'], 401);
         }else{
             return $next($request);
         }
